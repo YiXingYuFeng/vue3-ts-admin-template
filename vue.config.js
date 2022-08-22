@@ -1,3 +1,8 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const path = require('path')
+function resolve (dir) {
+  return path.join(__dirname, dir)
+}
 module.exports = {
   publicPath: '/',
   outputDir: 'dist',
@@ -6,21 +11,44 @@ module.exports = {
   productionSourceMap: false,
   devServer: {
     port: '9258',
-    client: {
-      // 允许浏览器中设置的日志级别
-      logging: 'error',
-      // 当出现编译错误或警告时，在浏览器中显示全屏覆盖。
-      overlay: {
-        errors: true,
-        warnings: false
-      },
-      // 在浏览器中以百分比显示编译进度。
-      progress: true,
-      // 告诉 dev-server 它应该尝试重新连接客户端的次数。当为 true 时，它将无限次尝试重新连接
-      reconnect: 3
-    },
-    proxy: {}
+    overlay: {
+      warnings: true,
+      errors: true
+    }
   },
-  configureWebpack: {},
-  chainWebpack: {}
+  configureWebpack: {
+    resolve: {
+      // 别名设置
+      alias: {
+        '@': resolve('src'),
+        '@utils': resolve('src/util'),
+        '@components': resolve('src/components')
+      }
+    }
+  },
+  chainWebpack: config => {
+    // svg
+    config.module
+      .rule('svg')
+      .exclude.add(resolve('src/icons'))
+      .end()
+    config.module
+      .rule('icons')
+      .test(/\.svg$/)
+      .include.add(resolve('src/icons'))
+      .end()
+      .use('svg-sprite-loader')
+      .loader('svg-sprite-loader')
+      .options({
+        symbolId: 'icon-[name]'
+      })
+      .end()
+    config.module
+      .rule('svg')
+      .use('vue-loader')
+      .loader('vue-loader')
+      .end()
+      .use('vue-svg-loader')
+      .loader('vue-svg-loader')
+  }
 }
