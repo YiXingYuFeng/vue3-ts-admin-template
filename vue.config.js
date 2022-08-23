@@ -27,6 +27,8 @@ module.exports = {
     }
   },
   chainWebpack: config => {
+    // 配置vue-loader
+
     // svg
     config.module
       .rule('svg')
