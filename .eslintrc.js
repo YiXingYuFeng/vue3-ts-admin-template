@@ -1,7 +1,8 @@
 module.exports = {
   root: true,
   env: {
-    node: true
+    node: true,
+    'vue/setup-compiler-macros': true
   },
   extends: [
     'plugin:vue/essential',
@@ -38,7 +39,13 @@ module.exports = {
     'vue/eqeqeq': 'error',
     'vue/key-spacing': 'error',
     'vue/match-component-file-name': 'error',
-    'vue/object-curly-spacing': 'error'
+    'vue/object-curly-spacing': 'error',
+    'block-spacing': [2, 'always'],
+    'arrow-spacing': [2, {
+      before: true,
+      after: true
+    }],
+    'space-before-blocks': [2, 'always']
   },
   overrides: [
     {
