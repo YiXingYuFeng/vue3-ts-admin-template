@@ -6,7 +6,7 @@ const componentPLugin:any = {
       const temp = path.match(/\.\/([A-Za-z0-9\-_]+)\.svg$/)
       if (!temp) return
       const name = temp[1]
-      require(`@/assets/svg/${name}.svg`)
+      require(`./svg/${name}.svg`)
     })
     vue.component(SvgIcon.name, SvgIcon)
   }

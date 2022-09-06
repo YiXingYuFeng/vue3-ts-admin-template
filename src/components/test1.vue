@@ -1,6 +1,7 @@
 <template>
   <div>
     {{name}}
+    <svg-icon :name="'bianji'"></svg-icon>
   </div>
 </template>
 
@@ -8,7 +9,7 @@
 import { Vue } from 'vue-class-component'
 
 export default class extends Vue {
-  get name () {
+  get name() {
     return 'test'
   }
 }
